@@ -1,0 +1,614 @@
+bash
+
+cat /mnt/user-data/outputs/Bias-Detective.css
+Output
+
+/* ============================================
+   Bias Detective Component - Styles
+   ============================================
+   
+   Design Philosophy:
+   - Clean, professional (not gamified)
+   - High contrast for legibility
+   - Feedback loops are immediate and clear
+   - Responsive design (mobile-first)
+   - WCAG 2.1 AA compliant
+*/
+
+:root {
+  --color-primary: #1a237e;
+  --color-secondary: #ff6b6b;
+  --color-success: #2ecc71;
+  --color-warning: #f39c12;
+  --color-danger: #e74c3c;
+  --color-text: #2c3e50;
+  --color-text-light: #7f8c8d;
+  --color-bg: #f8f9fa;
+  --color-border: #e0e0e0;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-size-body: 16px;
+  --font-size-sm: 14px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-xxl: 32px;
+
+  --transition-normal: 300ms ease-out;
+  --transition-fast: 150ms ease-out;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   Main Container
+   ============================================ */
+
+.bias-detective-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  background: white;
+  font-family: var(--font-family);
+  color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .bias-detective-container {
+    padding: var(--spacing-md);
+  }
+}
+
+/* ============================================
+   Header
+   ============================================ */
+
+.bias-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.bias-header h1 {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.bias-header p {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+/* ============================================
+   Progress Bar
+   ============================================ */
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--color-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  transition: width var(--transition-normal);
+}
+
+.progress-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  text-align: center;
+  margin: 0 0 var(--spacing-lg) 0;
+}
+
+/* ============================================
+   Scenario Section
+   ============================================ */
+
+.scenario-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.scenario-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-md) 0;
+  line-height: 1.4;
+}
+
+.scenario-context {
+  font-size: var(--font-size-body);
+  line-height: 1.8;
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-lg) 0;
+  padding: var(--spacing-md);
+  background: var(--color-bg);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 4px;
+}
+
+.question-prompt {
+  background: rgba(26, 35, 126, 0.05);
+  border: 1px solid var(--color-primary);
+  padding: var(--spacing-md);
+  border-radius: 6px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.question-prompt p {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+/* ============================================
+   Bias Options
+   ============================================ */
+
+.bias-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+@media (max-width: 768px) {
+  .bias-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bias-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-md);
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  font-family: var(--font-family);
+  text-align: center;
+}
+
+.bias-button:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  background: rgba(26, 35, 126, 0.02);
+}
+
+.bias-button:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.bias-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.bias-button.selected {
+  border-color: var(--color-primary);
+  background: rgba(26, 35, 126, 0.1);
+  border-width: 3px;
+}
+
+.bias-button.correct {
+  border-color: var(--color-success);
+  background: rgba(46, 204, 113, 0.1);
+  border-width: 3px;
+}
+
+.bias-button.incorrect {
+  border-color: var(--color-danger);
+  background: rgba(231, 76, 60, 0.1);
+  border-width: 3px;
+}
+
+/* Bias Icon */
+.bias-icon {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Bias Info */
+.bias-info {
+  text-align: center;
+}
+
+.bias-name {
+  font-size: var(--font-size-body);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.bias-def {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  line-height: 1.5;
+}
+
+/* ============================================
+   Feedback Section
+   ============================================ */
+
+.feedback-section {
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-left: 5px solid var(--color-warning);
+  border-radius: 8px;
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.feedback-section.correct {
+  border-left-color: var(--color-success);
+  background: rgba(46, 204, 113, 0.05);
+}
+
+.feedback-section.incorrect {
+  border-left-color: var(--color-danger);
+  background: rgba(231, 76, 60, 0.05);
+}
+
+.feedback-status {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary);
+}
+
+/* Explanation Box */
+.explanation-box {
+  margin-bottom: var(--spacing-lg);
+}
+
+.explanation-box h3 {
+  font-size: var(--font-size-body);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.explanation-box p {
+  font-size: var(--font-size-body);
+  line-height: 1.6;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* Reframing Box */
+.reframing-box {
+  background: white;
+  padding: var(--spacing-md);
+  border-radius: 6px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.reframing-box h3 {
+  font-size: var(--font-size-body);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.reframing-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reframing-list li {
+  font-size: var(--font-size-body);
+  line-height: 1.6;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+  padding-left: var(--spacing-md);
+  position: relative;
+}
+
+.reframing-list li:before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.reframing-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   Next Button
+   ============================================ */
+
+.next-btn {
+  display: inline-block;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--color-success);
+  color: white;
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.next-btn:hover {
+  background: #27ae60;
+  box-shadow: var(--shadow-md);
+}
+
+.next-btn:focus {
+  outline: 2px solid var(--color-success);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Score Tracker
+   ============================================ */
+
+.score-tracker {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: rgba(26, 35, 126, 0.05);
+  border-radius: 6px;
+  margin-top: var(--spacing-lg);
+}
+
+.score-tracker p {
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+/* ============================================
+   Results Page
+   ============================================ */
+
+.results-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 600px;
+}
+
+.results-card {
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-xl);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.results-card h2 {
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-lg) 0;
+}
+
+/* Score Display */
+.score-display {
+  margin: var(--spacing-xl) 0;
+}
+
+.big-score {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.score-label {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+/* Result Messages */
+.result-message {
+  padding: var(--spacing-md);
+  border-radius: 6px;
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-body);
+  line-height: 1.6;
+}
+
+.result-message p {
+  margin: 0;
+}
+
+.result-message.success {
+  background: rgba(46, 204, 113, 0.1);
+  border-left: 4px solid var(--color-success);
+  color: var(--color-text);
+}
+
+.result-message.good {
+  background: rgba(52, 152, 219, 0.1);
+  border-left: 4px solid #3498db;
+  color: var(--color-text);
+}
+
+.result-message.fair {
+  background: rgba(243, 156, 18, 0.1);
+  border-left: 4px solid var(--color-warning);
+  color: var(--color-text);
+}
+
+.result-message.needs-work {
+  background: rgba(231, 76, 60, 0.1);
+  border-left: 4px solid var(--color-danger);
+  color: var(--color-text);
+}
+
+/* Insight Box */
+.insight-box {
+  background: white;
+  padding: var(--spacing-md);
+  border-radius: 6px;
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid var(--color-border);
+}
+
+.insight-box h3 {
+  font-size: var(--font-size-body);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.insight-box p {
+  font-size: var(--font-size-body);
+  line-height: 1.6;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* Reset Button (Results) */
+.reset-btn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--color-secondary);
+  color: white;
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.reset-btn:hover {
+  background: #e55039;
+  box-shadow: var(--shadow-md);
+}
+
+.reset-btn:focus {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Learning Context
+   ============================================ */
+
+.learning-context {
+  background: rgba(26, 35, 126, 0.05);
+  border-left: 4px solid var(--color-primary);
+  padding: var(--spacing-md);
+  border-radius: 6px;
+  margin-top: var(--spacing-xl);
+}
+
+.learning-context h4 {
+  font-size: var(--font-size-body);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.learning-context p {
+  font-size: var(--font-size-body);
+  line-height: 1.6;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+/* High contrast mode */
+@media (prefers-contrast: more) {
+  .bias-button,
+  .feedback-section,
+  .results-card {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bias-button,
+  .next-btn,
+  .reset-btn,
+  .progress-fill {
+    transition: none;
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: #ecf0f1;
+    --color-text-light: #bdc3c7;
+    --color-bg: #2c3e50;
+    --color-border: #34495e;
+  }
+
+  .bias-detective-container {
+    background: #1e1e1e;
+  }
+
+  .scenario-context,
+  .question-prompt,
+  .bias-button,
+  .feedback-section,
+  .reframing-box,
+  .results-card,
+  .insight-box {
+    background: #2c3e50;
+  }
+
+  .bias-button:hover:not(:disabled) {
+    background: #34495e;
+  }
+
+  .question-prompt {
+    background: rgba(26, 35, 126, 0.2);
+  }
+
+  .learning-context {
+    background: rgba(26, 35, 126, 0.2);
+  }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+  .next-btn,
+  .reset-btn,
+  .progress-bar,
+  .progress-text {
+    display: none;
+  }
+
+  .feedback-section,
+  .scenario-section {
+    page-break-inside: avoid;
+  }
+}
